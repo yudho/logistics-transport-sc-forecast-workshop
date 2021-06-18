@@ -156,3 +156,5 @@ From the Forecast dashboard, click "Forecast lookup" and then fill-up these deta
 - Forecast key - Value: 231
 
 Click "Get Forecast" orange button
+
+![Forecast lookup](assets/pictures/forecast-lookup.png "Forecast lookup")
