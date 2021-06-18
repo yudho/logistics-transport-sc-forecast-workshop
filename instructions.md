@@ -151,7 +151,7 @@ Click "Start" orange button and please wait until the forecast is done.
 ### E.1 Lookup
 From the Forecast dashboard, click "Forecast lookup" and then fill-up these details:
 - Forecast: after_feb_2020
-- Start date: 2020/03/01 00:00:00
+- Start date: 2020/02/23 00:00:00
 - End date: 2020/03/06 23:00:00
 - Forecast key - Value: 231
 
