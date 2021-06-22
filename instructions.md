@@ -29,12 +29,20 @@ It should clone the notebooks and open up the folder structure. Please click the
 ### A.5 Open First Notebook
 Amazon Forecast requires 1 main dataset, which is the target time series. In this case, we will use the Jupyter Notebook to download a public dataset on NYC taxi pickups, transform as necessary to form the target time series CSV file, and upload it to S3 to be used with Forecast.
 
-Please double click file "01_prepare-target-time-series.ipynb". Once open, on the top right, ensure that the Kernel active is Python 3 (Data Science) with EC2 size of 2 vCPU + 4 GiB RAM. You can change them if they display other value. **Important**: Kernel can take minutes to be ready, especially if this is the first time you open the studio. If you see the instance type is "Unknown", you can just wait first until the kernel is ready 
+Please double click file "01_prepare-target-time-series.ipynb". 
+
+Once opened, please select "Python 3 (Data Science)"" as the kernel when asked. **Important**: Kernel can take minutes to be ready, especially if this is the first time you open the studio. On the top right, if you see the instance type is "Unknown", you can just wait first until the kernel is ready 
+
+On the top right, ensure that the Kernel active is Python 3 (Data Science) with EC2 size of 2 vCPU + 4 GiB RAM. 
 
 ![Studio kernel](assets/pictures/studio-kernel.png "Studio kernel")
 
 ### A.6 Generate Target Time Series as Input Data
-After the kernel is ready, click "Run" menu on the top bar and click "Run All Cells". Along with instructor, you can dive deeper on the dataset used, the transformation done, and the resulted CSV file structure in the notebook. Please wait until all cells are run before moving to the next step. Cells are successfully run when they display number on the left. When they show "\*", it means that the cell is still running.
+After the kernel is ready, click "Run" menu on the top bar and click "Run All Cells". 
+
+![Run cells](assets/pictures/run-cells.png "Run cells")
+
+Along with instructor, you can dive deeper on the dataset used, the transformation done, and the resulted CSV file structure in the notebook. Please wait until all cells are run before moving to the next step. Cells are successfully run when they display number on the left. When they show " \* ", it means that the cell is still running.
 
 ### A.7 Generate Related Time Series as Input Data
 Please open "02_prepare-related-time-series.ipynb" notebook and run all cells using the similar steps above. Here we are generating a related time series to support the target time series. Please make sure all cells are run.
