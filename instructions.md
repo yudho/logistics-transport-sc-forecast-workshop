@@ -159,7 +159,13 @@ Please click "Start" orange button
 Once redirected to the Forecast dashboard page, you can check periodically whether the training is finished by clicking "View predictors". The process took around 17 minutes for me.
 
 ### C.2 Create Another Predictor
-We will generate another predictor using DeepAR+ algorithm as comparison. Please follow the steps in C.1 but using "Prophet" algorithm and name: "deepar_algo". DeepAR+ training can be longer, from 29 minutes to 1 hour few minutes. We can proceed with section D without waiting for the DeepAR+ predictor since we will use the Prophet predictor for creating the forecast.
+We will generate another predictor using DeepAR+ algorithm as comparison. 
+
+Please follow the steps in C.1 but using "Prophet" algorithm and name: "deepar_algo". Also under "Advanced configurations", look at "Training parameters" section and change the context_length to 126. This is how many data points Amazon Forecast will use to generate the forecasting. From my previous run, I found this number to yield good result.
+
+![Context length](assets/pictures/set-context-length.png "Context length")
+
+DeepAR+ training can be longer, from 29 minutes to 1 hour few minutes. We can proceed with section D without waiting for the DeepAR+ predictor since we will use the Prophet predictor for creating the forecast. Later once the DeepAR+ model training is finished, you can compare the quality metrics.
 
 ## Section D: Create Forecast
 Once your predictor is created, that means that the model training has been done. The model can then be used to generate forecast based on input data (inference time). So, you can append more data in the dataset, and create forecast accordingly. This can be itertive. For now, let's just create a forecast based on the data we already have in our dataset.
