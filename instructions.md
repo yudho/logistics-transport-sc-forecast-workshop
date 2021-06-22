@@ -161,7 +161,7 @@ Once redirected to the Forecast dashboard page, you can check periodically wheth
 ### C.2 Create Another Predictor
 We will generate another predictor using DeepAR+ algorithm as comparison. 
 
-Please follow the steps in C.1 but using "Prophet" algorithm and name: "deepar_algo". Also under "Advanced configurations", look at "Training parameters" section and change the context_length to 126. This is how many data points Amazon Forecast will use to generate the forecasting. From my previous run, I found this number to yield good result.
+Please follow the steps in C.1 but using "DeepAR+" algorithm and name: "deepar_algo". Also under "Advanced configurations", look at "Training parameters" section and change the context_length to 126. This is how many data points Amazon Forecast will use to generate the forecasting. From my previous run, I found this number to yield good result.
 
 ![Context length](assets/pictures/set-context-length.png "Context length")
 
