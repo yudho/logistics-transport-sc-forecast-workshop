@@ -85,21 +85,24 @@ On "Data location" click "Browse S3". On the search bar type "sagemaker-" and fi
 
 Now find this folder "nyc-taxi-trips" inside the bucket, and you should find "tts.csv" inside. Select that file and click "Choose".
 
-
-For the IAM Role, select "Enter a custom IAM role ARN" and paste "arn\:aws\:iam\:\:\<AWS account ID\>\:role/ForecastToS3". Replace \<AWS account ID\> with the 12 digits account ID located on the top right corner as shown in the picture below
+For the IAM Role, select "Enter a custom IAM role ARN" and paste "arn\:aws\:iam\:\:\<AWS account ID\>\:role/ForecastToS3". Replace \<AWS account ID\> with the 12 digits account ID located on the top right corner as shown in the picture below. **Important**: Please note this ARN on your local file to be reused later on.
 
 ![Forecast IAM Role](assets/pictures/forecast-iam-role.png "Forecast IAM Role")
 
 Click "Start" orange button to start importing the data to Forecast.
 
 ### B.3 Create RTS Dataset
-After importing the TTS (Target Time Series), let's also import RTS (Related Time Series) that we have. From the Forecast Dataset group UI console, click the dataset group name we have just created. Click "Datasets" on the left menu. Then click "Upload dataset" orange button. Select "RELATED_TIME_SERIES" and click "Start import"
+After importing the TTS (Target Time Series), let's also import RTS (Related Time Series) that we have. 
+
+If you were redirected to the Forecast main UI, click the "View dataset groups" orange button. From the Forecast dataset group UI console, click the dataset group name we have just created (nyc_taxi). Click "Datasets" on the left menu. Then click "Upload dataset" orange button. Select "RELATED_TIME_SERIES" and click "Start import"
 
 Details:
 - Dataset name: related_time_series
 - Frequency of your data: 1 hour
 
-Add attribute by clicking on "Add attribute button" with name "day_hour_of_the_week" and type is "string". Rearrange the attribute by dragging so that the order will be:
+Add attribute by clicking on "Add attribute button" with name "day_hour_of_the_week" and type is "string". 
+
+Rearrange the attribute by dragging so that the order will be:
 1) timestamp
 2) item_id
 3) day_hour_of_the_week
@@ -110,6 +113,8 @@ Under "Dataset import details":
 On "Data location" click "Browse S3". On the search bar type "sagemaker-" and find the correct bucket name. The correct one should be "sagemaker-(region-name)-(your-account-id)". Click the bucket name.
 
 Now find this folder "nyc-taxi-trips" inside the bucket, and you should find "rts.csv" inside. Select that file and click "Choose".
+
+For the IAM Role, please select "Enter a custom IAM role ARN" and paste the ARN we had from step B.2
 
 Click "Start" orange button to start importing the data to Forecast.
 
@@ -130,6 +135,8 @@ Under "Dataset import details":
 On "Data location" click "Browse S3". On the search bar type "sagemaker-" and find the correct bucket name. The correct one should be "sagemaker-(region-name)-(your-account-id)". Click the bucket name.
 
 Now find this folder "nyc-taxi-trips" inside the bucket, and you should find "im.csv" inside. Select that file and click "Choose".
+
+For the IAM Role, please select "Enter a custom IAM role ARN" and paste the ARN we had from step B.2
 
 Click "Start" orange button to start importing the data to Forecast.
 
