@@ -36,10 +36,8 @@ In the notebook, we will be downloading a public dataset on NYC taxi pickups, tr
 1. Double-click on the notebook `01_prepare-target-time-series.ipynb` to open it.
 2. Select `Python 3 (Data Science)` as the kernel when prompted. 
 
-
-```
 **Important**
-
+```
 Launching a kernel can take up to 10 minutes. 
 While launching, the kernel status (shown on the top right) will be "unknown  Python 3 (Data Science)" 
 Once it is ready, the status will become "2 vCPU + 4 GiB Python 3 (Data Science)"
@@ -56,9 +54,8 @@ Once it is ready, the status will become "2 vCPU + 4 GiB Python 3 (Data Science)
 Cells are successfully ran when they display number on the left. When they show `[*]`, it means that the cell is still running.
 Throughout the session, we will be diving deeper on the dataset used, the transformation done, and the resulted CSV file structure in the notebook.
 
+**Important**:
 ```
-**Important**: 
-
 The second last cell will output the IAM Role Amazon Resource Name (ARN) to be used later by Forecast. 
 Please take note of this string. It looks like arn\:aws\:iam\:\:xxxxxxxxxxxx:role/ForecastToS3
 ```
@@ -127,31 +124,44 @@ Select time zone: America/New_York
    5. Click "Choose".
 
 8. On IAM Role, select "Enter a custom IAM role ARN" and paste the Forecast IAM Role ARN you copied from step A.5. 
-    1. If you did not take note of it, you can visit the SageMaker Studio again and open the first notebook ("01_prepare-target-time-series.ipynb") and look at the second last cell.
+    1. You can open SageMaker Studio and find the ARN displayed on the second last cell of the first notebook ("01_prepare-target-time-series.ipynb")
 9. Click "Start" to import the data to Forecast.
 
 ### B.3 Create RTS Dataset
+
 After importing the TTS (Target Time Series), let's also import RTS (Related Time Series) that we have. 
 
-If you were redirected to the Forecast main UI, click the "View dataset groups" orange button. From the Forecast dataset group UI console, click the dataset group name we have just created (nyc_taxi). Click "Datasets" on the left menu. Then click "Upload dataset" orange button. Select "RELATED_TIME_SERIES" and click "Start import"
-
-Details:
-- Dataset name: related_time_series
-- Frequency of your data: 1 hour
-
-Add attribute by clicking on "Add attribute button" with name "day_hour_of_the_week" and type is "string". 
-
-Rearrange the attribute by dragging so that the order will be:
+1. Click this link to go to forecast, https://ap-southeast-1.console.aws.amazon.com/forecast/home?region=ap-southeast-1#landing
+2. Click `View dataset groups`
+3. Under Dataset groups, Click `nyc_taxi`  
+4. On the left pane, click `Datasets`
+5. Select "RELATED_TIME_SERIES"
+6. Click "Upload dataset" 
+7. Fill up the form
+```
+Dataset name: related_time_series
+Frequency of your data: 1 hour
+```
+8. Click `Add attribute` 
+```
+Attribute Name: day_hour_of_the_week
+Attribute Type: string
+```
+9. Ensure the order of the attributes (by dragging) to be:
+```
 1) timestamp
 2) item_id
 3) day_hour_of_the_week
-
-Under "Dataset import details":
-- Dataset import name: rts_v1
-
-On "Data location" click "Browse S3". On the search bar type "sagemaker-" and find the correct bucket name. The correct one should be "sagemaker-(region-name)-(your-account-id)". Click the bucket name.
-
-Now find this folder "nyc-taxi-trips" inside the bucket, and you should find "rts.csv" inside. Select that file and click "Choose".
+```
+10. Under "Dataset import details"
+```
+Dataset import name: rts_v1
+```
+11. On "Data location" click "Browse S3". 
+   1. On the search bar, type `sagemaker-` and click the bucket name, "sagemaker-(region-name)-(your-account-id)".
+   2. Click the folder "nyc-taxi-trips"
+   3. Select the file "rts.csv"
+   4. Click "Choose".
 
 For the IAM Role, please select "Enter a custom IAM role ARN" and paste the ARN we had from step A.5
 
