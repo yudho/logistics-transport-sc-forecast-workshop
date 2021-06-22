@@ -1,5 +1,9 @@
+# IDE
+.idea
+
 # Project specific
 *.csv
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

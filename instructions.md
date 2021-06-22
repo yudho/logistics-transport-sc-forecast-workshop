@@ -4,16 +4,18 @@ Introduction: Amazon Forecast is a machine learning service that provides predic
 
 ## Section A: Data Preparation
 ### A.1 Region selection
-Please check with your instructor about the regions where you will be working for this hands-on. You can change it by selecting the region name in the upper right of the screen:
+For this workshop, we will be working in the region `Asia Pacific (Singapore) ap-southeast-1`
+You can change it by selecting the region name in the upper right of the screen:
 
 ![Region selection](assets/pictures/region-selection.png "Region selection")
 
 ### A.2 Go to SageMaker
-We will use SageMaker Studio for data preparation. Type "sagemaker" on the search bar on top and click "Amazon SageMaker"
+We will use SageMaker Studio for data preparation. Type `sagemaker` on the search bar on top and click `Amazon SageMaker`
 ![Go to SageMaker](assets/pictures/enter-sagemaker-in-console.png "Go to SageMaker")
 
 ### A.3 Enter studio
-On SageMaker console, locate and click "Amazon SageMaker Studio" on the left menu. There should be a user already created on the right pane. Click "Open studio". It may take a while for the studio to open, probably around 2-5 minutes.
+On SageMaker console, locate and click "Amazon SageMaker Studio" on the left menu. There should be a user already created on the right pane. 
+Click `Open studio`. It may take approximately 2-5 minutes for the studio to launch.
 ![Enter studio](assets/pictures/enter-sagemaker-studio.png "Enter studio")
 
 ### A.4 Download the Notebooks
@@ -21,18 +23,20 @@ Once the studio is open, locate the left menu and click the second icon from top
 
 ![Clone repo](assets/pictures/clone-repo.png "Clone repo")
 
-Then click "Clone a Repository". When asked for the git URL, paste https://github.com/yudho/logistics-transport-sc-forecast-workshop.git and click "CLONE"
-
-It should clone the notebooks and open up the folder structure. Please click the folder "logistics-transport-sc-forecast-workshop".
+Then click `Clone a Repository`. When prompted for the git URL, paste `https://github.com/yudho/logistics-transport-sc-forecast-workshop.git` and click `CLONE`
+It will clone the all the notebooks required for this workshop. 
+Double-click on the folder `logistics-transport-sc-forecast-workshop` to view all the notebooks
 
 ### A.5 Open First Notebook
 Amazon Forecast requires 1 main dataset, which is the target time series. In this case, we will use the Jupyter Notebook to download a public dataset on NYC taxi pickups, transform as necessary to form the target time series CSV file, and upload it to S3 to be used with Forecast.
 
-Please double click file "01_prepare-target-time-series.ipynb". 
+Please double-click on the file "01_prepare-target-time-series.ipynb" to open it.
 
-Once opened, please select "Python 3 (Data Science)"" as the kernel when asked. **Important**: Kernel can take minutes to be ready, especially if this is the first time you open the studio. On the top right, if you see the instance type is "Unknown", you can just wait first until the kernel is ready 
+Once opened, select "Python 3 (Data Science)" as the kernel when prompted. 
 
-On the top right, ensure that the Kernel active is Python 3 (Data Science) with EC2 size of 2 vCPU + 4 GiB RAM. 
+**Important**: Launching a kernel can take up to 10 minutes. 
+While launching, the kernel status (shown on the top right) will be `unknown  Python 3 (Data Science)` 
+Once it is ready, the status will become `2 vCPU + 4 GiB Python 3 (Data Science)` 
 
 ![Studio kernel](assets/pictures/studio-kernel.png "Studio kernel")
 
