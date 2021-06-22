@@ -146,26 +146,29 @@ Please monitor the Datasets page and only proceed with the next step when all da
 ### C.1 Create Predictor
 From the Forecast datasets UI, click "Dashboard" on the left menu. Click the "Start" orange button next to "Predictor training". Please fill-up this detail:
 
-- Predictor name: deepar
+- Predictor name: prophet_algo
 - Forecast horizon: 168
 - Forecast frequency: 1 hour
 - Algorithm selection: Manual
-- Algorithm: DeepAR+
+- Algorithm: Prophet
 - Holidays: Enable holidays
 - Select a country: United States
 
 Please click "Start" orange button
 
-Once redirected to the Forecast dashboard page, you can check periodically whether the training is finished by clicking "View predictors".
+Once redirected to the Forecast dashboard page, you can check periodically whether the training is finished by clicking "View predictors". The process took around 17 minutes for me.
+
+### C.2 Create Another Predictor
+We will generate another predictor using DeepAR+ algorithm as comparison. Please follow the steps in C.1 but using "Prophet" algorithm and name: "deepar_algo". DeepAR+ training can be longer, from 29 minutes to 1 hour few minutes. We can proceed with section D without waiting for the DeepAR+ predictor since we will use the Prophet predictor for creating the forecast.
 
 ## Section D: Create Forecast
 Once your predictor is created, that means that the model training has been done. The model can then be used to generate forecast based on input data (inference time). So, you can append more data in the dataset, and create forecast accordingly. This can be itertive. For now, let's just create a forecast based on the data we already have in our dataset.
 ### D.1 Create Forecast
 From the Forecast dashboard, click "Start" orange button next to "Forecast generation". Please fill-up these details:
 - Forecast name: after_feb_2020
-- Predictor: deepar
+- Predictor: prophet_algo
 
-Click "Start" orange button and please wait until the forecast is done.
+Click "Start" orange button and please wait until the forecast is done. The process is estimated to take 11-14 minutes.
 
 ## Section E: Visualize Forecast
 ### E.1 Lookup
@@ -178,3 +181,6 @@ From the Forecast dashboard, click "Forecast lookup" and then fill-up these deta
 Click "Get Forecast" orange button
 
 ![Forecast lookup](assets/pictures/forecast-lookup.png "Forecast lookup")
+
+### E.2 Another Lookup
+Still on the Forecast lookup page, try out different value, like "230". This represents forecasting for different the pickup locations
