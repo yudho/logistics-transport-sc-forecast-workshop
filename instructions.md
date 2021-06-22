@@ -1,5 +1,4 @@
 # Amazon Forecast Workshop for Logistics, Transportation, and Supply Chain
-*No code workshop to experiment on Amazon Forecast*
 
 Introduction: Amazon Forecast is a machine learning service that provides prediction based on time series data provided by AWS.
 
