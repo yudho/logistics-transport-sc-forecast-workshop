@@ -1,98 +1,134 @@
 # Amazon Forecast Workshop for Logistics, Transportation, and Supply Chain
 
-Introduction: Amazon Forecast is a machine learning service that provides prediction based on time series data provided by AWS.
+Introduction: Amazon Forecast is a machine learning service that provides prediction based on time series data.
 
-## Section A: Data Preparation
-### A.1 Region selection
-For this workshop, we will be working in the region `Asia Pacific (Singapore) ap-southeast-1`
-You can change it by selecting the region name in the upper right of the screen:
+### A.1. Open SageMaker console
 
-![Region selection](assets/pictures/region-selection.png "Region selection")
+We will leverage on SageMaker Studio for data preparation and visualization.
 
-### A.2 Go to SageMaker
-We will use SageMaker Studio for data preparation. Type `sagemaker` on the search bar on top and click `Amazon SageMaker`
+1. Click this link, https://ap-southeast-1.console.aws.amazon.com/sagemaker/home?region=ap-southeast-1
+2. On the upper right of the console, ensure the region selected is `Singapore` 
+
 ![Go to SageMaker](assets/pictures/enter-sagemaker-in-console.png "Go to SageMaker")
 
-### A.3 Enter studio
-On SageMaker console, locate and click "Amazon SageMaker Studio" on the left menu. There should be a user already created on the right pane. 
-Click `Open studio`. It may take approximately 2-5 minutes for the studio to launch.
+### A.2. Open SageMaker studio
+
+1. On the left menu, click `Amazon SageMaker Studio`
+2. On the right pane, a user have been automatically created for you. 
+3. Click `Open Studio`. It may take approximately 2-5 minutes for the studio to launch.
+
 ![Enter studio](assets/pictures/enter-sagemaker-studio.png "Enter studio")
 
-### A.4 Download the Notebooks
-Once the studio is open, locate the left menu and click the second icon from top for Git. 
+### A.3. Clone the repository
+
+1. Once launched, locate git icon on the left menu (it will be the  second icon from top). 
+2. Click `Clone a Repository`
+3. You will be prompted for a git URL, paste `https://github.com/yudho/logistics-transport-sc-forecast-workshop.git`
+4. Click `Clone`
+5. Click on the folder `logistics-transport-sc-forecast-workshop` to view all the notebooks
 
 ![Clone repo](assets/pictures/clone-repo.png "Clone repo")
 
-Then click `Clone a Repository`. When prompted for the git URL, paste `https://github.com/yudho/logistics-transport-sc-forecast-workshop.git` and click `CLONE`
-It will clone the all the notebooks required for this workshop. 
-Double-click on the folder `logistics-transport-sc-forecast-workshop` to view all the notebooks
+### A.4. Opening notebook
 
-### A.5 Open First Notebook
-Amazon Forecast requires 1 main dataset, which is the target time series. In this case, we will use the Jupyter Notebook to download a public dataset on NYC taxi pickups, transform as necessary to form the target time series CSV file, and upload it to S3 to be used with Forecast.
+In the notebook, we will be downloading a public dataset on NYC taxi pickups, transform it into a target time series CSV file, and upload it to S3 to be used with Amazon Forecast. 
 
-Please double-click on the file "01_prepare-target-time-series.ipynb" to open it.
+1. Double-click on the notebook `01_prepare-target-time-series.ipynb` to open it.
+2. Select `Python 3 (Data Science)` as the kernel when prompted. 
 
-Once opened, select "Python 3 (Data Science)" as the kernel when prompted. 
 
-**Important**: Launching a kernel can take up to 10 minutes. 
-While launching, the kernel status (shown on the top right) will be `unknown  Python 3 (Data Science)` 
-Once it is ready, the status will become `2 vCPU + 4 GiB Python 3 (Data Science)` 
+```
+**Important**
+
+Launching a kernel can take up to 10 minutes. 
+While launching, the kernel status (shown on the top right) will be "unknown  Python 3 (Data Science)" 
+Once it is ready, the status will become "2 vCPU + 4 GiB Python 3 (Data Science)"
+``` 
 
 ![Studio kernel](assets/pictures/studio-kernel.png "Studio kernel")
 
-### A.6 Generate Target Time Series as Input Data
-After the kernel is ready, click "Run" menu on the top bar and click "Run All Cells". 
+### A.5. Running cells
+
+1. When kernel is ready, click `Run > Run All Cells` menu on the top bar
 
 ![Run cells](assets/pictures/run-cells.png "Run cells")
 
-Along with instructor, you can dive deeper on the dataset used, the transformation done, and the resulted CSV file structure in the notebook. Please wait until all cells are run before moving to the next step. Cells are successfully run when they display number on the left. When they show " \* ", it means that the cell is still running.
+Cells are successfully ran when they display number on the left. When they show `[*]`, it means that the cell is still running.
+Throughout the session, we will be diving deeper on the dataset used, the transformation done, and the resulted CSV file structure in the notebook.
 
-**Important**: The second last cell will output the IAM Role Amazon Resource Name (ARN) to be used later by Forecast. Please take note of this string. It looks like arn\:aws\:iam\:\:xxxxxxxxxxxx:role/ForecastToS3
+```
+**Important**: 
 
-### A.7 Generate Related Time Series as Input Data
-Please open "02_prepare-related-time-series.ipynb" notebook and run all cells using the similar steps above. Here we are generating a related time series to support the target time series. Please make sure all cells are run.
+The second last cell will output the IAM Role Amazon Resource Name (ARN) to be used later by Forecast. 
+Please take note of this string. It looks like arn\:aws\:iam\:\:xxxxxxxxxxxx:role/ForecastToS3
+```
 
-### A.8 Generate Item Metadata as Input Data
-Please open "03_prepare-item-metadata.ipynb" notebook and run all cells using the similar steps above. Here we are generating metadata for the items (pickup locations) to support the target time series forecasting. Please make sure all cells are run. 
+### A.6. Generate Related Time Series as Input Data
+
+This notebook will generate a related time series data to support the target time series.
+
+1. open "02_prepare-related-time-series.ipynb" notebook
+2. Run all cells using the similar steps above, `Run > Run All Cells`. 
+3. Ensure all cells are executed
+
+### A.7. Generate Item Metadata as Input Data
+
+This notebook will generate metadata for the items (pickup locations) to support the target time series
+
+1. open "03_prepare-item-metadata.ipynb" notebook
+2. Run all cells using the similar steps above, `Run > Run All Cells`.
+3. Ensure all cells are executed
 
 ## Section B: Import Data to Forecast
 ### B.1 Go to Forecast Console
-Now we have done with the data preparation. All the CSV files are uploaded in S3 bucket, to be used as input data by Amazon Forecast. Let's go to Amazon Forecast.
 
-Select your web browser tab which displays the main AWS UI console, not the SageMaker Studio Jupyter Lab UI. On the search bar on top, type "forecast". Click "Amazon Forecast".
+Now we have done with the data preparation. All the CSV files will be uploaded in S3 bucket, to be used as input data by Amazon Forecast. Let's go to Amazon Forecast.
+
+1. Click this link to go to forecast, https://ap-southeast-1.console.aws.amazon.com/forecast/home?region=ap-southeast-1#landing
 
 ![Amazon Forecast](assets/pictures/enter-forecast-in-console.png "Amazon Forecast")
 
 ### B.2 Create Dataset Group and Create TTS Dataset
+
 Dataset group is a construct which group the target time series, related time series, and item metadata you have for a particular project. We need to create one. 
 
-In the Forecast UI console, locate the "Create dataset group" orange button. Then please fill-up the form:
+1. In the Forecast UI console, Click `Create dataset group` 
+2. Fill up the form
+```
+Dataset group name: nyc_taxi
+Forecasting domain: Custom
+```
 
-- Dataset group name: nyc_taxi
-- Forecasting domain: Custom
+3. Click `Next`
+4. Fill up the form
+```
+Dataset name: target_time_series
+Frequency of your data: **1 hour**
+```
 
-Then click the "Next" orange button
-
-On the next page, we will create the target time series dataset within the dataset group we just defined:
-- Dataset name: target_time_series
-- Frequency of your data: **1 hour**
-
-Switch the order of the attributes (by dragging) so that the order will be:
+5. Ensure the order of the attributes (by dragging) to be:
+```
 1) timestamp
 2) item_id
 3) target_value
+```
 
-Under "Dataset import details":
-- Dataset import name: tts_v1
-- Select time zone: America/New_York
+6. Under "Dataset import details":
+```
+Dataset import name: tts_v1
+Select time zone: America/New_York
+```
 
-On "Data location" click "Browse S3". On the search bar type "sagemaker-" and find the correct bucket name. The correct one should be "sagemaker-(region-name)-(your-account-id)". Click the bucket name.
+7. On `Data location`, click `Browse S3`.
+   1. On the search bar type `sagemaker-`
+   2. Click the bucket name, `sagemaker-(region-name)-(your-account-id)`.
+   3. Click the folder `nyc-taxi-trips`
+   4. Select the file "tts.csv"
+   5. Click "Choose".
 
-Now find this folder "nyc-taxi-trips" inside the bucket, and you should find "tts.csv" inside. Select that file and click "Choose".
-
-For the IAM Role, select "Enter a custom IAM role ARN" and paste the Forecast IAM Role ARN you copied from step A.5. If you did not take note of it, you can visit the SageMaker Studio again and open the first notebook ("01_prepare-target-time-series.ipynb") and look at the second last cell.
-
-Click "Start" orange button to start importing the data to Forecast.
+8. On IAM Role, select "Enter a custom IAM role ARN" and paste the Forecast IAM Role ARN you copied from step A.5. 
+    1. If you did not take note of it, you can visit the SageMaker Studio again and open the first notebook ("01_prepare-target-time-series.ipynb") and look at the second last cell.
+9. Click "Start" to import the data to Forecast.
 
 ### B.3 Create RTS Dataset
 After importing the TTS (Target Time Series), let's also import RTS (Related Time Series) that we have. 
