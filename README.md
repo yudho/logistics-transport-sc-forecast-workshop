@@ -131,7 +131,7 @@ Select time zone: America/New_York
 
 After importing the TTS (Target Time Series), let's also import RTS (Related Time Series) that we have. 
 
-1. Click this link to go to forecast, https://ap-southeast-1.console.aws.amazon.com/forecast/home?region=ap-southeast-1#landing
+1. Go to Amazon forecast console, https://ap-southeast-1.console.aws.amazon.com/forecast/home?region=ap-southeast-1#landing
 2. Click `View dataset groups`
 3. Under Dataset groups, Click `nyc_taxi`  
 4. On the left pane, click `Datasets`
@@ -162,59 +162,105 @@ Dataset import name: rts_v1
    2. Click the folder "nyc-taxi-trips"
    3. Select the file "rts.csv"
    4. Click "Choose".
-
-For the IAM Role, please select "Enter a custom IAM role ARN" and paste the ARN we had from step A.5
-
-Click "Start" orange button to start importing the data to Forecast.
+12. On IAM Role, select "Enter a custom IAM role ARN" and paste the Forecast IAM Role ARN you copied from step A.5.
+   1. You can open SageMaker Studio and find the ARN displayed on the second last cell of the first notebook ("01_prepare-target-time-series.ipynb")
+13. Click "Start" to import the data to Forecast.
 
 ### B.4 Create Item Metadata Dataset
-After importing the RTS, let's also import item metadata that we have. Click the "Upload dataset" orange button. Select "ITEM_METADATA" and click "Start import"
 
-Details:
-- Dataset name: item_metadata
+After importing the RTS, let's also import item metadata that we have. 
 
-Add attribute by clicking on "Add attribute button" with name "area". Add another attribute with name "category". Make sure the attribute order follows this:
+1. Select "ITEM_METADATA"
+2. Click "Upload dataset" 
+3. Fill up the form
+```
+Dataset name: item_metadata
+```
+4. Click `Add attribute`
+```
+Attribute Name: area
+Attribute Type: string
+```
+5. Click `Add attribute`
+```
+Attribute Name: category
+Attribute Type: string
+```
+6. Ensure the order of the attributes (by dragging) to be:
+```
 1) item_id
 2) area
 3) category
-
-Under "Dataset import details":
-- Dataset import name: im_v1
-
-On "Data location" click "Browse S3". On the search bar type "sagemaker-" and find the correct bucket name. The correct one should be "sagemaker-(region-name)-(your-account-id)". Click the bucket name.
-
-Now find this folder "nyc-taxi-trips" inside the bucket, and you should find "im.csv" inside. Select that file and click "Choose".
-
-For the IAM Role, please select "Enter a custom IAM role ARN" and paste the ARN we had from step A.5
-
-Click "Start" orange button to start importing the data to Forecast.
-
-Please monitor the Datasets page and only proceed with the next step when all datasets are imported and active.
+```
+10. Under "Dataset import details"
+```
+Dataset import name: im_v1
+```
+11. On "Data location" click "Browse S3".
+   1. On the search bar, type `sagemaker-` and click the bucket name, "sagemaker-(region-name)-(your-account-id)".
+   2. Click the folder "nyc-taxi-trips"
+   3. Select the file "im.csv"
+   4. Click "Choose".
+12. On IAM Role, select "Enter a custom IAM role ARN" and paste the Forecast IAM Role ARN you copied from step A.5.
+1. You can open SageMaker Studio and find the ARN displayed on the second last cell of the first notebook ("01_prepare-target-time-series.ipynb")
+13. Click "Start" to import the data to Forecast.
+14. Monitor the Datasets page 
+   1. Proceed to the next step when all datasets `status` and `Latest import status` are active.
 
 ## Section C: Train The Forecasting Model
 ### C.1 Create Predictor
-From the Forecast datasets UI, click "Dashboard" on the left menu. Click the "Start" orange button next to "Predictor training". Please fill-up this detail:
 
-- Predictor name: prophet_algo
-- Forecast horizon: 168
-- Forecast frequency: 1 hour
-- Algorithm selection: Manual
-- Algorithm: Prophet
-- Holidays: Enable holidays
-- Select a country: United States
+1. Go to Amazon forecast console, https://ap-southeast-1.console.aws.amazon.com/forecast/home?region=ap-southeast-1#landing
+2. Click `View dataset groups`
+3. Under Dataset groups, Click `nyc_taxi`
+4. Under `Train a predictor`, Click `Start`
+5. Fill-up the form:
+```
+Predictor name: prophet_algo
+Forecast horizon: 168
+Forecast frequency: 1 hour
+Algorithm selection: Manual
+Algorithm: Prophet
+Holidays: Enable holidays
+Select a country: United States
+```
+6. Click `Start`.
+7. The training process will take approximately around 20 minutes .
 
-Please click "Start" orange button
+To verify the status of the trainin,
+1. Go to Amazon forecast console, https://ap-southeast-1.console.aws.amazon.com/forecast/home?region=ap-southeast-1#landing
+2. Click `View dataset groups`.
+3. Click "View predictors". 
 
-Once redirected to the Forecast dashboard page, you can check periodically whether the training is finished by clicking "View predictors". The process took around 17 minutes for me.
+### C.2 Create Another Predictor (Optional)
+For comparison, we will train another predictor using DeepAR+ algorithm. 
 
-### C.2 Create Another Predictor
-We will generate another predictor using DeepAR+ algorithm as comparison. 
-
-Please follow the steps in C.1 but using "DeepAR+" algorithm and name: "deepar_algo". Also under "Advanced configurations", look at "Training parameters" section and change the context_length to 126. This is how many data points Amazon Forecast will use to generate the forecasting. From my previous run, I found this number to yield good result.
-
+1. Go to Amazon forecast console, https://ap-southeast-1.console.aws.amazon.com/forecast/home?region=ap-southeast-1#landing
+2. Click `View dataset groups`
+3. Under Dataset groups, Click `nyc_taxi`
+4. Click `Train predictor`
+5. Fill-up the form:
+```
+Predictor name: deepar_algo
+Forecast horizon: 168
+Forecast frequency: 1 hour
+Algorithm selection: Manual
+Algorithm: Prophet
+Holidays: Enable holidays
+Select a country: United States
+```
+6. Under `Advance configuration > Training parameters`, change `context_length` to `126`
+   1. This is the number of data points Amazon Forecast will use to generate the forecasting. 
+7. Click `Start`.
+   
 ![Context length](assets/pictures/set-context-length.png "Context length")
 
-DeepAR+ training can be longer, from 29 minutes to 1 hour few minutes. We can proceed with section D without waiting for the DeepAR+ predictor since we will use the Prophet predictor for creating the forecast. Later once the DeepAR+ model training is finished, you can compare the quality metrics.
+**NOTE**
+```
+DeepAR+ training can take up to 1 hour. 
+We can proceed with section D without waiting for the DeepAR+ predictor since we will use the Prophet predictor for creating the forecast. 
+Later once the DeepAR+ model training is finished, we can compare the quality metrics.
+```
 
 ## Section D: Create Forecast
 Once your predictor is created, that means that the model training has been done. The model can then be used to generate forecast based on input data (inference time). So, you can append more data in the dataset, and create forecast accordingly. This can be itertive. For now, let's just create a forecast based on the data we already have in our dataset.
