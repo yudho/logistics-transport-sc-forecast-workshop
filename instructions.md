@@ -44,6 +44,8 @@ After the kernel is ready, click "Run" menu on the top bar and click "Run All Ce
 
 Along with instructor, you can dive deeper on the dataset used, the transformation done, and the resulted CSV file structure in the notebook. Please wait until all cells are run before moving to the next step. Cells are successfully run when they display number on the left. When they show " \* ", it means that the cell is still running.
 
+**Important**: The second last cell will output the IAM Role Amazon Resource Name (ARN) to be used later by Forecast. Please take note of this string. It looks like arn\:aws\:iam\:\:xxxxxxxxxxxx:role/ForecastToS3
+
 ### A.7 Generate Related Time Series as Input Data
 Please open "02_prepare-related-time-series.ipynb" notebook and run all cells using the similar steps above. Here we are generating a related time series to support the target time series. Please make sure all cells are run.
 
@@ -85,9 +87,7 @@ On "Data location" click "Browse S3". On the search bar type "sagemaker-" and fi
 
 Now find this folder "nyc-taxi-trips" inside the bucket, and you should find "tts.csv" inside. Select that file and click "Choose".
 
-For the IAM Role, select "Enter a custom IAM role ARN" and paste "arn\:aws\:iam\:\:\<AWS account ID\>\:role/ForecastToS3". Replace \<AWS account ID\> with the 12 digits account ID located on the top right corner as shown in the picture below. **Important**: Please note this ARN on your local file to be reused later on.
-
-![Forecast IAM Role](assets/pictures/forecast-iam-role.png "Forecast IAM Role")
+For the IAM Role, select "Enter a custom IAM role ARN" and paste the Forecast IAM Role ARN you copied from step A.5. If you did not take note of it, you can visit the SageMaker Studio again and open the first notebook ("01_prepare-target-time-series.ipynb") and look at the second last cell.
 
 Click "Start" orange button to start importing the data to Forecast.
 
@@ -114,7 +114,7 @@ On "Data location" click "Browse S3". On the search bar type "sagemaker-" and fi
 
 Now find this folder "nyc-taxi-trips" inside the bucket, and you should find "rts.csv" inside. Select that file and click "Choose".
 
-For the IAM Role, please select "Enter a custom IAM role ARN" and paste the ARN we had from step B.2
+For the IAM Role, please select "Enter a custom IAM role ARN" and paste the ARN we had from step A.5
 
 Click "Start" orange button to start importing the data to Forecast.
 
@@ -136,7 +136,7 @@ On "Data location" click "Browse S3". On the search bar type "sagemaker-" and fi
 
 Now find this folder "nyc-taxi-trips" inside the bucket, and you should find "im.csv" inside. Select that file and click "Choose".
 
-For the IAM Role, please select "Enter a custom IAM role ARN" and paste the ARN we had from step B.2
+For the IAM Role, please select "Enter a custom IAM role ARN" and paste the ARN we had from step A.5
 
 Click "Start" orange button to start importing the data to Forecast.
 
