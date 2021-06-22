@@ -7,7 +7,7 @@ Introduction: Amazon Forecast is a machine learning service that provides predic
 ### A.1 Region selection
 Please check with your instructor about the regions where you will be working for this hands-on. You can change it by selecting the region name in the upper right of the screen:
 
-![Region selection](pictures/region-selection.png "Region selection")
+![Region selection](assets/pictures/region-selection.png "Region selection")
 
 ### A.2 Go to SageMaker
 We will use SageMaker Studio for data preparation. Type "sagemaker" on the search bar on top and click "Amazon SageMaker"
