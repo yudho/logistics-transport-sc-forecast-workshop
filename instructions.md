@@ -85,9 +85,10 @@ On "Data location" click "Browse S3". On the search bar type "sagemaker-" and fi
 
 Now find this folder "nyc-taxi-trips" inside the bucket, and you should find "tts.csv" inside. Select that file and click "Choose".
 
-Copy (ctrl+c) the bucket name for the step below.
 
-For the IAM Role, select "Create a new role" and select "Specific S3 buckets" and paste the bucket name. Click the "Create role" orange button.
+For the IAM Role, select "Enter a custom IAM role ARN" and paste "arn\:aws\:iam\:\:\<AWS account ID\>\:role/ForecastToS3". Replace \<AWS account ID\> with the 12 digits account ID located on the top right corner as shown in the picture below
+
+![Forecast IAM Role](assets/pictures/forecast-iam-role.png "Forecast IAM Role")
 
 Click "Start" orange button to start importing the data to Forecast.
 
