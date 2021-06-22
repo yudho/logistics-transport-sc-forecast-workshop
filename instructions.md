@@ -176,11 +176,11 @@ From the Forecast dashboard, click "Forecast lookup" and then fill-up these deta
 - Forecast: after_feb_2020
 - Start date: 2020/02/23 00:00:00
 - End date: 2020/03/06 23:00:00
-- Forecast key - Value: 231
+- Forecast key - Value: 230
 
 Click "Get Forecast" orange button
 
 ![Forecast lookup](assets/pictures/forecast-lookup.png "Forecast lookup")
 
 ### E.2 Another Lookup
-Still on the Forecast lookup page, try out different value, like "230". This represents forecasting for different the pickup locations
+Still on the Forecast lookup page, try out different value, like "231". This represents forecasting for different the pickup locations
